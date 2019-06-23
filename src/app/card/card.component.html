@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="alert alert-success col-9" *ngIf="matchedPairs === 15">
+    <strong>Congratulations!!!</strong> You have completed the memory game.
+    <button class="btn btn-success" (click)="resetGame()">Start New Game</button>
+  </div>
+  <div class="alert alert-danger col-9">
+    <strong>Game Over!!!</strong> You did not completed the memory game in time.
+    <button class="btn btn-danger" (click)="resetGame()">Try Again</button>
+  </div>
+  <section class="memory-game">
+    <div class="memory-card" *ngFor="let card of frontCard" (click)="flipCard(card)"
+         [ngClass]="card.flipped ? 'flip' : ''"
+    >
+      <img src="../../assets/flags/{{card.flag}}" alt="" class="front">
+      <img src="../../assets/{{back}}" alt="" class="back">
+    </div>
+  </section>
+</div>
