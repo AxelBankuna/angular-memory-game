@@ -3,7 +3,7 @@
     <strong>Congratulations!!!</strong> You have completed the memory game.
     <button class="btn btn-success" (click)="resetGame()">Start New Game</button>
   </div>
-  <div class="alert alert-danger col-9">
+  <div class="alert alert-danger col-9" *ngIf="getCounterValue() === 0">
     <strong>Game Over!!!</strong> You did not completed the memory game in time.
     <button class="btn btn-danger" (click)="resetGame()">Try Again</button>
   </div>

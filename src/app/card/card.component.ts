@@ -13,9 +13,9 @@ export class CardComponent implements OnInit {
 
   frontCard: CardModel[] = [];
 
-  back = 'africa.png';
+  counter = 0;
 
-  timerValue = {};
+  back = 'africa.png';
 
   lock = false;
   flipped = false;
@@ -32,6 +32,7 @@ export class CardComponent implements OnInit {
     for (const [i, card] of Object.entries(this.frontCard)) {
       console.log(parseInt(i) + 1, card.flag);
     }
+    this.counter = this.timerComponent.getCounterValue();
   }
 
   resetFlips() {
@@ -71,6 +72,11 @@ export class CardComponent implements OnInit {
       card.flipped = true;
       card.matched = true;
     }
+  }
+
+  getCounterValue() {
+    this.counter = this.timerComponent.getCounterValue();
+    return this.counter;
   }
 
   resetGame() {
