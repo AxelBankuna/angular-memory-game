@@ -75,7 +75,8 @@ export class CardComponent implements OnInit {
   }
 
   getCounterValue() {
-    this.counter = this.timerComponent.getCounterValue();
+    this.counter = this.timerService.getCounter();
+    console.log(`Before returning: ${this.counter}`);
     return this.counter;
   }
 
