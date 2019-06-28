@@ -1,6 +1,8 @@
 <div class="container">
   <div class="alert alert-success col-9" *ngIf="matchedPairs === 15">
     <strong>Congratulations!!!</strong> You have completed the memory game.
+    <p class="badge">Number of turns taken: {{ turns }}</p><br>
+    <p class="badge">Time taken: {{ time }} seconds</p>&nbsp;
     <button class="btn btn-success" (click)="resetGame()">Start New Game</button>
   </div>
   <div class="alert alert-danger col-9" *ngIf="getCounterValue() === 0">

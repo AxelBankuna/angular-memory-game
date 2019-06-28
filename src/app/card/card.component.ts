@@ -14,6 +14,8 @@ export class CardComponent implements OnInit {
   frontCard: CardModel[] = [];
 
   counter = 0;
+  turns = 0;
+  time = 0;
 
   back = 'africa.png';
 
@@ -28,7 +30,7 @@ export class CardComponent implements OnInit {
   ngOnInit() {
     this.frontCard = this.cardService.shuffle(this.cardService.getFrontCard());
     this.frontCard.splice(15);
-    this.frontCard = this.cardService.shuffle(this.cardService.createPairs(this.frontCard));
+    this.frontCard = this.cardService.shuffle(this.cardService.addIndex(this.cardService.createPairs(this.frontCard)));
     for (const [i, card] of Object.entries(this.frontCard)) {
       console.log(parseInt(i) + 1, card.flag);
     }
@@ -44,22 +46,29 @@ export class CardComponent implements OnInit {
   }
 
   flipCard(card: CardModel) {
-    if (this.lock || card.matched) {
+    if (this.lock || card.matched ) {
       return;
     }
     card.flipped = !card.flipped;
     if (!this.first.hasOwnProperty('flag')) {
       this.first = card;
     } else if (!this.second.hasOwnProperty('flag')) {
+      if (this.first.id === card.id) {
+        this.turns++;
+        return;
+      }
       this.second = card;
     }
     if (this.first.hasOwnProperty('flag') && this.second.hasOwnProperty('flag')) {
+      this.turns++;
       if (this.first.flag !== this.second.flag) {
         this.lock = true;
         this.resetFlips();
       } else if (this.first.flag === this.second.flag) {
         this.matchedPairs++;
         if (this.matchedPairs === 15) {
+          this.time = 120 - this.timerService.getCounter();
+          this.timerService.stop = true;
         }
         [this.first.matched, this.second.matched] = [true, true];
         [this.first, this.second] = [{}, {}];
@@ -76,7 +85,6 @@ export class CardComponent implements OnInit {
 
   getCounterValue() {
     this.counter = this.timerService.getCounter();
-    console.log(`Before returning: ${this.counter}`);
     return this.counter;
   }
 

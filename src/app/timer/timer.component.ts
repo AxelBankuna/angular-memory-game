@@ -40,9 +40,8 @@ export class TimerComponent implements OnInit {
 
   processCountdown() {
     // emit event on number change
-    console.log('count is ', this.counter);
 
-    if (this.counter === 0) {
+    if (this.counter === 0 || this.timerService.getStop()) {
       // emit event when counter reaches 0
       console.log('--counter end--');
     } else {
@@ -51,7 +50,6 @@ export class TimerComponent implements OnInit {
   }
 
   getCounterValue() {
-    console.log(`we are returning: ${this.timerService.getCounter()}`);
     return this.counter;
   }
 
