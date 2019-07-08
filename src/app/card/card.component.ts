@@ -45,10 +45,14 @@ export class CardComponent implements OnInit {
     }, 900);
   }
 
-  flipCard(card: CardModel) {
+  cardPreCheck(card: CardModel) {
     if (this.lock || card.matched ) {
-      return;
+      return true;
     }
+    return false;
+  }
+
+  cardClickCheck(card: CardModel) {
     card.flipped = !card.flipped;
     if (!this.first.hasOwnProperty('flag')) {
       this.first = card;
@@ -59,33 +63,50 @@ export class CardComponent implements OnInit {
       }
       this.second = card;
     }
-    if (this.first.hasOwnProperty('flag') && this.second.hasOwnProperty('flag')) {
-      this.turns++;
-      if (this.first.flag !== this.second.flag) {
-        this.lock = true;
-        this.resetFlips();
-      } else if (this.first.flag === this.second.flag) {
-        this.matchedPairs++;
-        if (this.matchedPairs === 15) {
-          this.time = 120 - this.timerService.getCounter();
-          this.timerService.stop = true;
-        }
-        [this.first.matched, this.second.matched] = [true, true];
-        [this.first, this.second] = [{}, {}];
-      }
-    }
   }
 
-  gameOver(cards) {
-    for (const card of cards) {
-      card.flipped = true;
-      card.matched = true;
+  cardMatchCheck(card: CardModel) {
+    if (this.first.flag !== this.second.flag) {
+      this.lock = true;
+      this.resetFlips();
+      return false;
+    }
+    return true;
+  }
+
+  cardMatched(card: CardModel) {
+    this.matchedPairs++;
+    if (this.matchedPairs === 15) {
+      this.time = 120 - this.timerService.getCounter();
+      this.timerService.stop = true;
+    }
+    [this.first.matched, this.second.matched] = [true, true];
+    [this.first, this.second] = [{}, {}];
+  }
+
+  flipCard(card: CardModel) {
+    if (this.cardPreCheck(card)) {
+      return;
+    }
+    this.cardClickCheck(card);
+    if (this.first.hasOwnProperty('flag') && this.second.hasOwnProperty('flag')) {
+      this.turns++;
+      if (this.cardMatchCheck(card)) {
+        this.cardMatched(card);
+      }
     }
   }
 
   getCounterValue() {
     this.counter = this.timerService.getCounter();
     return this.counter;
+  }
+
+  flipAllCards() {
+    for (const card of this.frontCard) {
+      card.flipped = true;
+      card.matched = true;
+    }
   }
 
   resetGame() {
