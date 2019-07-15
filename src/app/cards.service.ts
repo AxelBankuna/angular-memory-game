@@ -31,9 +31,10 @@ export class CardsService {
     {flag: 'Tanzania.png', flipped: false, matched: false, id: 0}, {flag: 'Togo.png', flipped: false, matched: false, id: 0},
     {flag: 'Western-Sahara.png', flipped: false, matched: false, id: 0}, {flag: 'Zambia.png', flipped: false, matched: false, id: 0},
     {flag: 'Zimbabwe.png', flipped: false, matched: false, id: 0}, {flag: 'Tunisia.png', flipped: false, matched: false, id: 0},
-    {flag: 'Sierra-Leone.png', flipped: false, matched: false, id: 0}, {flag: 'Central-African-Republic.png', flipped: false, matched: false, id: 0},
+    {flag: 'Sierra-Leone.png', flipped: false, matched: false, id: 0},
     {flag: 'Gambia.png', flipped: false, matched: false, id: 0}, {flag: 'Libya.png', flipped: false, matched: false, id: 0},
-    {flag: 'Mali.png', flipped: false, matched: false, id: 0}, {flag: 'Republic-of-Congo.png', flipped: false, matched: false, id: 0}
+    {flag: 'Mali.png', flipped: false, matched: false, id: 0}, {flag: 'Republic-of-Congo.png', flipped: false, matched: false, id: 0},
+    {flag: 'Central-African-Republic.png', flipped: false, matched: false, id: 0}
   ];
 
   constructor() { }

@@ -31,7 +31,7 @@ describe('CardComponent', () => {
   });
 });
 
-describe('getCounterValue', () => {
+describe('flipAllCards', () => {
   let component: CardComponent;
   let fixture: ComponentFixture<CardComponent>;
 
@@ -50,11 +50,8 @@ describe('getCounterValue', () => {
     fixture.detectChanges();
   });
 
-  it('should return the value of the counter before being initialised', fakeAsync(() => {
-    component.first.flipped = true;
-    component.second.flipped = true;
-    component.resetFlips();
-    tick(900);
-    expect(component.first.flipped).toBe(false);
-  }));
+  it('should flip all the cards over', () => {
+    component.flipAllCards();
+    expect(component.frontCard[0].matched).toBe(true);
+  });
 });
