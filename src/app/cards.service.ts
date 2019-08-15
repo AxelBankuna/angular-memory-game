@@ -6,6 +6,8 @@ import {CardModel} from './card/card.model';
 })
 export class CardsService {
 
+  turns = 0;
+
   frontCard = [
     {flag: 'Algeria.png', flipped: false, matched: false, id: 0}, {flag: 'Angola.png', flipped: false, matched: false, id: 0},
     {flag: 'Benin.png', flipped: false, matched: false, id: 0}, {flag: 'Botswana.png', flipped: false, matched: false, id: 0},
@@ -75,5 +77,9 @@ export class CardsService {
       item.id = index;
     });
     return array;
+  }
+
+  getTurns() {
+    return this.turns;
   }
 }

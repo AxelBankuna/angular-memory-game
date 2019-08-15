@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {TimerService} from '../timer.service';
+import {HighscoreService} from '../highscore.service';
 
 @Component({
   selector: 'app-timer',
@@ -27,7 +28,9 @@ export class TimerComponent implements OnInit {
   doCountdown() {
     setTimeout(() => {
       this.counter = this.timerService.counter;
-      this.counter = this.counter - 1;
+      if (this.getGameStatus()) {
+        this.counter = this.counter - 1;
+      }
       if (this.counter < 61 && this.counter > 30) {
         this.colour = 'warning';
       } else if (this.counter < 31) {
@@ -53,5 +56,9 @@ export class TimerComponent implements OnInit {
     return this.counter;
   }
 
-  constructor(private timerService: TimerService) {}
+  constructor(private timerService: TimerService, private highscoreService: HighscoreService) {}
+
+  getGameStatus() {
+    return this.highscoreService.getGameStatus();
+  }
 }

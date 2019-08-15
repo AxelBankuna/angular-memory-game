@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {CardsService} from '../cards.service';
-import {CardModel} from './card.model';
-import {TimerService} from '../timer.service';
-import {TimerComponent} from '../timer/timer.component';
+import { CardsService } from '../cards.service';
+import { CardModel } from './card.model';
+import { TimerService } from '../timer.service';
+import { TimerComponent } from '../timer/timer.component';
+import {HighscoreService} from '../highscore.service';
 
 @Component({
   selector: 'app-card',
@@ -25,9 +26,13 @@ export class CardComponent implements OnInit {
   second: any = {};
   matchedPairs = 0;
 
-  constructor(private cardService: CardsService, private timerService: TimerService, private timerComponent: TimerComponent) { }
+  constructor(private cardService: CardsService,
+              private timerService: TimerService,
+              private timerComponent: TimerComponent,
+              private  highscoreService: HighscoreService) { }
 
   ngOnInit() {
+    this.turns = this.cardService.getTurns();
     this.frontCard = this.cardService.shuffle(this.cardService.getFrontCard());
     this.frontCard.splice(15);
     this.frontCard = this.cardService.shuffle(this.cardService.addIndex(this.cardService.createPairs(this.frontCard)));
@@ -58,7 +63,7 @@ export class CardComponent implements OnInit {
       this.first = card;
     } else if (!this.second.hasOwnProperty('flag')) {
       if (this.first.id === card.id) {
-        this.turns++;
+        this.cardService.turns++;
         return;
       }
       this.second = card;
@@ -85,12 +90,13 @@ export class CardComponent implements OnInit {
   }
 
   flipCard(card: CardModel) {
-    if (this.cardPreCheck(card)) {
+    if (this.cardPreCheck(card) || !this.highscoreService.getGameStatus()) {
       return;
     }
+    this.turns = this.cardService.getTurns();
     this.cardClickCheck(card);
     if (this.first.hasOwnProperty('flag') && this.second.hasOwnProperty('flag')) {
-      this.turns++;
+      this.cardService.turns++;
       if (this.cardMatchCheck(card)) {
         this.cardMatched(card);
       }
