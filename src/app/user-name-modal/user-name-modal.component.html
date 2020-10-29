@@ -1,19 +1,19 @@
 <ng-template #content let-d="dismiss" let-c="close">
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">You have a high score!!!</h4>
+    <h4 class="modal-title" id="modal-basic-title">Please input your name: </h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <form #userForm="ngForm" novalidate (ngSubmit)="onSubmit()">
-      {{userForm.value | json }}
+<!--      {{userForm.value | json }}-->
       <hr>
-      {{ userModel | json }}
+<!--      {{ userModel | json }}-->
       <div class="form-group">
         <label for="userName">Enter your name:</label>
         <div class="input-group">
-          <input type="text" #userName="ngModel" required placeholder="Name" id="userName" name="userName" [(ngModel)]="userModel.name">
+          <input type="text" #userName="ngModel" required placeholder="Player Name" id="userName" name="userName" [(ngModel)]="userModel.name">
         </div>
         <div class="alert alert-danger" *ngIf="userName.touched && !userName.valid">Name is required.</div>
       </div>
@@ -21,11 +21,11 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-outline-dark" (click)="saveDetails(); c('On Submit')">Save</button>
+    <button type="submit" class="btn btn-outline-dark" (click)="saveDetails(); c('On Submit')">Start Game</button>
   </div>
 </ng-template>
 
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)" *ngIf="gameStatus === false">Start Game</button>
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)" *ngIf="gameStatus === false">New Game</button>
 
 <hr>
 

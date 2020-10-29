@@ -18,7 +18,7 @@ export class UserNameModalComponent implements OnInit {
 
   constructor(private modalService: NgbModal, private highScoreService: HighscoreService) {}
 
-  userModel = new User('AxelBanx', 20, 56);
+  userModel = new User('', 20, 56);
   submitted = false;
 
   open(content) {
